@@ -26,5 +26,5 @@ export const MOODS = [
 export const STORY_LENGTH = {
   min: 5,
   max: 15,
-  step: 5,
+  step: 1,
 } as const;

@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { generateStory, generateImage } from '@/lib/openai';
 import { storyFormSchema } from '@/lib/validations/story';
 
-// Remove edge runtime to ensure environment variables are accessible
-// export const runtime = 'edge';
+// Ensure Next.js does not attempt to statically optimize the route
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
@@ -17,13 +17,13 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    
+
     try {
       const validatedData = storyFormSchema.parse(body);
-      
+
       // Generate the story
       const story = await generateStory(validatedData);
-      
+
       if (!story) {
         throw new Error('No story content received');
       }
@@ -37,9 +37,9 @@ export async function POST(request: Request) {
         console.error('Failed to generate image:', imageError);
         // Continue without image if generation fails
       }
-      
+
       return NextResponse.json({ story, imageUrl });
-      
+
     } catch (validationError: any) {
       console.error('Validation error:', validationError);
       return NextResponse.json(
@@ -47,12 +47,12 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    
+
   } catch (error: any) {
     console.error('Error in generate route:', error);
     const errorMessage = error?.message || 'Failed to generate story';
     const statusCode = error?.status || 500;
-    
+
     return NextResponse.json(
       { error: errorMessage },
       { status: statusCode }

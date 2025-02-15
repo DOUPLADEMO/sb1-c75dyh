@@ -110,7 +110,7 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
           name="length"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Story Length (minutes)</FormLabel>
+              <FormLabel>Story Length ({STORY_LENGTH.min}-{STORY_LENGTH.max} minutes)</FormLabel>
               <FormControl>
                 <Slider
                   min={STORY_LENGTH.min}
@@ -118,9 +118,11 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
                   step={STORY_LENGTH.step}
                   value={[field.value]}
                   onValueChange={(value) => field.onChange(value[0])}
+                  onBlur={field.onBlur}
                   className="w-full"
                 />
               </FormControl>
+              <div className="text-sm text-gray-500 mt-2">Selected length: {field.value} minutes</div>
               <FormMessage />
             </FormItem>
           )}
