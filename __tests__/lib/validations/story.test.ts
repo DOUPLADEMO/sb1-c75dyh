@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { storyFormSchema } from '@/lib/validations/story';
+import { storyFormSchema } from '@/lib/validations/story-form';
 
 describe('Story Form Validation', () => {
   const validData = {

@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "sb1-c75dyh"
+location: "europe-central2"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "sb1-c75dyh-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

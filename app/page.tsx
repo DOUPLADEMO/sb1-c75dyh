@@ -4,8 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BookOpen, Sparkles, Volume2, Download } from "lucide-react";
 import Link from "next/link";
+import { useAuthContext } from "@/context/AuthContext";
 
 export default function Home() {
+
+  const { user } = useAuthContext()
+
+
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background to-secondary">
       <div className="container px-4 py-16 mx-auto">
@@ -17,7 +23,6 @@ export default function Home() {
             Create personalized bedtime stories for your children using AI magic. Bring their imagination to life with custom characters, themes, and illustrations.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {features.map((feature) => (
             <Card key={feature.title} className="p-6 hover:shadow-lg transition-shadow">
@@ -29,8 +34,8 @@ export default function Home() {
         </div>
 
         <div className="flex justify-center gap-4">
-          <Button asChild size="lg">
-            <Link href="/create">Create Your Story</Link>
+          <Button asChild size="lg" disabled={!user}>
+            <Link href={user ? "/create" : "/signup"}>Create Your Story</Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
             <Link href="/examples">View Examples</Link>

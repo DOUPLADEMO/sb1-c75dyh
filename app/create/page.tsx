@@ -1,64 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
-import { StoryForm } from "@/components/story/story-form";
-import { StoryDisplay } from "@/components/story/story-display";
-import type { StoryFormValues } from "@/lib/validations/story";
 
-export default function CreateStory() {
-  const [story, setStory] = useState<string | null>(null);
-  const [storyImage, setStoryImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function onSubmit(values: StoryFormValues) {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate story');
-      }
-
-      const data = await response.json();
-      setStory(data.story);
-      if (data.imageUrl) {
-        setStoryImage(data.imageUrl);
-      }
-    } catch (err) {
-      setError('Failed to generate story. Please try again.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div className="container max-w-6xl mx-auto px-4 py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <Card className="p-6">
-          <h1 className="text-3xl font-bold mb-8">Create Your Story</h1>
-          <StoryForm onSubmit={onSubmit} isLoading={loading} />
-        </Card>
-
-        <Card className="p-6">
-          <h2 className="text-2xl font-bold mb-4">Your Story</h2>
-          <StoryDisplay 
-            story={story} 
-            error={error} 
-            loading={loading} 
-            storyImage={storyImage}
-          />
-        </Card>
-      </div>
-    </div>
-  );
+export default function LandingPage() {
+    return (
+        <div className="container max-w-6xl mx-auto px-4 py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <Card className="p-6">
+                    <h1 className="text-3xl font-bold mb-8">Welcome to the Story Creator</h1>
+                    <p className="mb-4">Choose an option to get started:</p>
+                    <ul className="">
+                        <li>
+                            <Link href="/create/basic-form" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
+                                Create Story with Basic Form
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/create/advanced-form" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
+                                Create Story with Advanced Form
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/create/image-upload" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
+                                Create Story with image upload
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/create/freetype" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
+                                Create Story with free type text
+                            </Link>
+                        </li>
+                        {/* Add more links here as needed */}
+                    </ul>
+                </Card>
+            </div>
+        </div>
+    );
 }

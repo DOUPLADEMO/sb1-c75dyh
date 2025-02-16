@@ -9,16 +9,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { storyFormSchema, type StoryFormValues } from "@/lib/validations/story";
+import { storyFormSchema, type BasicStoryFormValues } from "@/lib/validations/story-form";
 import { THEMES, AGE_GROUPS, LANGUAGES, MOODS, STORY_LENGTH } from "@/lib/constants/story-options";
 
-interface StoryFormProps {
-  onSubmit: (values: StoryFormValues) => Promise<void>;
+interface BasicStoryFormProps {
+  onSubmit: (values: BasicStoryFormValues) => Promise<void>;
   isLoading: boolean;
 }
 
-export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
-  const form = useForm<StoryFormValues>({
+export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
+  const form = useForm<BasicStoryFormValues>({
     resolver: zodResolver(storyFormSchema),
     defaultValues: {
       characterName: "",
@@ -26,11 +26,11 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
       ageGroup: "3-5",
       length: 5,
       language: "english",
-      mood: "playful",
+      tone: "playful",
     },
   });
 
-  const handleSubmit = async (values: StoryFormValues) => {
+  const handleSubmit = async (values: BasicStoryFormValues) => {
     try {
       await onSubmit(values);
     } catch (error) {
@@ -46,7 +46,7 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
           name="characterName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Main Character's Name</FormLabel>
+              <FormLabel>Main Character&apos;s Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter name..." {...field} />
               </FormControl>
@@ -155,7 +155,7 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
 
         <FormField
           control={form.control}
-          name="mood"
+          name="tone"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Story Mood</FormLabel>

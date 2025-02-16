@@ -7,7 +7,7 @@ export const storyFormSchema = z.object({
   ageGroup: z.enum([AGE_GROUPS[0].value, ...AGE_GROUPS.slice(1).map(g => g.value)]),
   length: z.number().min(5).max(15),
   language: z.enum([LANGUAGES[0].value, ...LANGUAGES.slice(1).map(l => l.value)]),
-  mood: z.enum([MOODS[0].value, ...MOODS.slice(1).map(m => m.value)]),
+  tone: z.enum([MOODS[0].value, ...MOODS.slice(1).map(m => m.value)]),
 });
 
-export type StoryFormValues = z.infer<typeof storyFormSchema>;
+export type BasicStoryFormValues = z.infer<typeof storyFormSchema>;

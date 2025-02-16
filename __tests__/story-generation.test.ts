@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { generateStory } from '@/lib/openai';
-import { storyFormSchema } from '@/lib/validations/story';
+import { storyFormSchema } from '@/lib/validations/story-form';
 
 vi.mock('openai', () => {
   return {

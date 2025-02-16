@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "bedtimestories1-5f241",
+    "staging": "bedtimestories1-5f241"
+  },
+  "targets": {},
+  "etags": {}
+}

@@ -1,6 +1,8 @@
+import { AuthContextProvider } from '@/context/AuthContext';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import SiteHeader from '@/components/SiteHeader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +18,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AuthContextProvider>
+          <SiteHeader />
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+          <footer className="container mx-auto px-4 py-4 text-center">
+            <p>&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+          </footer>
+        </AuthContextProvider>
+      </body>
     </html>
   );
 }

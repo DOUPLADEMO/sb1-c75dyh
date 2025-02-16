@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import { generateStory, generateImage } from '@/lib/openai';
-import { storyFormSchema } from '@/lib/validations/story';
+import { generateStory, StoryPrompt } from '@/lib/openai';
+import { storyFormSchema } from '@/lib/validations/story-form';
+import { db, auth } from '../firebase';
+import admin from 'firebase-admin';
 
 // Ensure Next.js does not attempt to statically optimize the route
 export const dynamic = 'force-dynamic';
@@ -21,24 +23,60 @@ export async function POST(request: Request) {
     try {
       const validatedData = storyFormSchema.parse(body);
 
+      const storyPrompt: StoryPrompt = {
+        name: validatedData.characterName,
+        age: 0, // Default value
+        gender: '', // Default value
+        characterType: '', // Default value
+        personalityTraits: '', // Default value
+        supportingCharacters: '', // Default value
+        setting: '', // Default value
+        specialLocations: '', // Default value
+        storyType: validatedData.theme,
+        morals: '', // Default value
+        magicalElements: '', // Default value
+        challenges: '', // Default value
+        tone: validatedData.tone,
+        favoriteDialogues: '', // Default value
+        hobbies: '', // Default value
+        realReferences: '', // Default value
+        storyLength: `${validatedData.length} minutes`,
+        illustrationStyle: validatedData.theme,
+        musicStyle: '', // Default value
+        additionalNotes: '' // Default value
+      };
+
       // Generate the story
-      const story = await generateStory(validatedData);
+      const story = await generateStory(storyPrompt, 'hu');
 
       if (!story) {
         throw new Error('No story content received');
       }
 
-      // Generate an illustration for the story
-      let imageUrl = null;
-      try {
-        const imagePrompt = `${validatedData.theme} story about ${validatedData.characterName}: ${story.split('\n')[0]}`;
-        imageUrl = await generateImage(imagePrompt);
-      } catch (imageError: any) {
-        console.error('Failed to generate image:', imageError);
-        // Continue without image if generation fails
+      // Get the current user from the request headers
+      const idToken = request.headers.get('Authorization')?.split('Bearer ')[1];
+      if (!idToken) {
+        return NextResponse.json(
+          { error: 'Unauthorized' },
+          { status: 401 }
+        );
       }
 
-      return NextResponse.json({ story, imageUrl });
+      const decodedToken = await auth.verifyIdToken(idToken);
+      const uid = decodedToken.uid;
+      const user = await auth.getUser(uid);
+
+      // Store the result in Firestore
+      await db.collection("stories").add({
+        authorUid: uid,
+        story: story.content,
+        imageUrl: story.imageUrl,
+        prompt: story.prompt,
+        authorName: user.displayName,
+        createdAt: admin.firestore.Timestamp.now(),
+      });
+
+      return NextResponse.json({ story });
 
     } catch (validationError: any) {
       console.error('Validation error:', validationError);
@@ -59,3 +97,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
