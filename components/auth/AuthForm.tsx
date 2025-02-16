@@ -43,22 +43,22 @@ export function AuthForm({ type, onSubmit, onGoogleSignIn, onFacebookSignIn }: A
     };
 
     return (
-        <div className="wrapper">
-            <div className="form-wrapper">
-                <h1 className="mt-60 mb-30">{type === "signIn" ? "Sign in" : "Sign up"}</h1>
-                <form onSubmit={handleForm} className="form space-y-4">
-                    <label htmlFor="email">
-                        <p>Email</p>
-                        <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email" placeholder="example@mail.com" />
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
+                <h1 className="text-2xl font-bold text-center">{type === "signIn" ? "Sign in" : "Sign up"}</h1>
+                <form onSubmit={handleForm} className="space-y-4">
+                    <label htmlFor="email" className="block">
+                        <span className="text-gray-700">Email</span>
+                        <input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" id="email" placeholder="example@mail.com" className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50" />
                     </label>
-                    <label htmlFor="password">
-                        <p>Password</p>
-                        <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password" id="password" placeholder="password" />
+                    <label htmlFor="password" className="block">
+                        <span className="text-gray-700">Password</span>
+                        <input onChange={(e) => setPassword(e.target.value)} required type="password" name="password" id="password" placeholder="password" className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-opacity-50" />
                     </label>
-                    <button type="submit" className="w-full">{type === "signIn" ? "Sign in" : "Sign up"}</button>
+                    <button type="submit" className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">{type === "signIn" ? "Sign in" : "Sign up"}</button>
                 </form>
-                <button onClick={handleGoogleSignIn} className="w-full mt-2">Sign {type === "signIn" ? "in" : "up"} with Google</button>
-                <button onClick={handleFacebookSignIn} className="w-full mt-2">Sign {type === "signIn" ? "in" : "up"} with Facebook</button>
+                <button onClick={handleGoogleSignIn} className="w-full px-4 py-2 mt-2 font-bold text-white bg-red-500 rounded hover:bg-red-700">Sign {type === "signIn" ? "in" : "up"} with Google</button>
+                <button onClick={handleFacebookSignIn} className="w-full px-4 py-2 mt-2 font-bold text-white bg-blue-600 rounded hover:bg-blue-800">Sign {type === "signIn" ? "in" : "up"} with Facebook</button>
             </div>
         </div>
     );
