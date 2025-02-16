@@ -12,8 +12,8 @@ export const openai = new OpenAI({
 
 
 export interface StoryPrompt {
-  name?: string;
-  age?: number;
+  characterName?: string;
+  age?: string;
   gender?: string;
   characterType?: string;
   personalityTraits?: string;
@@ -29,7 +29,7 @@ export interface StoryPrompt {
   hobbies?: string;
   realReferences?: string;
   storyLength?: string;
-  illustrationStyle: string;
+  illustrationStyle?: string;
   musicStyle?: string;
   additionalNotes?: string;
 }
@@ -70,12 +70,35 @@ async function generateImage(imagePrompt: string): Promise<string> {
   return response.data[0]?.url || "";
 }
 
-export async function generateStory(_prompt: StoryPrompt, currentLanguage: String): Promise<StoryResponse> {
+export async function generateStory(prompt: StoryPrompt, currentLanguage: String): Promise<StoryResponse> {
 
   currentLanguage = currentLanguage || 'hu';
   // Fill in missing details in the story prompt
-  const prompt: StoryPrompt = await fillStoryPrompt(_prompt);
 
+  // Ensure all fields are included as empty strings if undefined
+  let completePrompt: StoryPrompt = {
+    characterName: prompt.characterName || '',
+    age: prompt.age || '',
+    gender: prompt.gender || '',
+    characterType: prompt.characterType || '',
+    personalityTraits: prompt.personalityTraits || '',
+    supportingCharacters: prompt.supportingCharacters || '',
+    setting: prompt.setting || '',
+    specialLocations: prompt.specialLocations || '',
+    storyType: prompt.storyType || '',
+    morals: prompt.morals || '',
+    magicalElements: prompt.magicalElements || '',
+    challenges: prompt.challenges || '',
+    tone: prompt.tone || '',
+    favoriteDialogues: prompt.favoriteDialogues || '',
+    hobbies: prompt.hobbies || '',
+    realReferences: prompt.realReferences || '',
+    storyLength: prompt.storyLength || '',
+    illustrationStyle: prompt.illustrationStyle || '',
+    musicStyle: prompt.musicStyle || '',
+    additionalNotes: prompt.additionalNotes || '',
+  };
+  completePrompt = await fillStoryPrompt(completePrompt);
 
   const systemPrompt = currentLanguage === 'hu'
     ? "Kreatív gyermekmese író vagy. Alkoss lebilincselő, kornak megfelelő esti meséket. A történetet magyar nyelven írd meg. Használj markdown formázást."
@@ -88,36 +111,36 @@ export async function generateStory(_prompt: StoryPrompt, currentLanguage: Strin
       content: systemPrompt
     }, {
       role: "user",
-      content: `${currentLanguage === 'hu' ? 'Készíts egy' : 'Create a'} ${prompt.storyLength} ${currentLanguage === 'hu' ? 'hosszúságú esti mesét a következő részletekkel' : 'bedtime story with the following details'}:
+      content: `${currentLanguage === 'hu' ? 'Készíts egy' : 'Create a'} ${completePrompt.storyLength} ${currentLanguage === 'hu' ? 'hosszúságú esti mesét a következő részletekkel' : 'bedtime story with the following details'}:
                 
                 ${currentLanguage === 'hu' ? 'Főszereplő' : 'Main Character'}:
-                - ${currentLanguage === 'hu' ? 'Név' : 'Name'}: ${prompt.name}
-                - ${currentLanguage === 'hu' ? 'Életkor' : 'Age'}: ${prompt.age}
-                - ${currentLanguage === 'hu' ? 'Nem' : 'Gender'}: ${prompt.gender}
-                - ${currentLanguage === 'hu' ? 'Típus' : 'Type'}: ${prompt.characterType}
-                - ${currentLanguage === 'hu' ? 'Személyiség' : 'Personality'}: ${prompt.personalityTraits}
+                - ${currentLanguage === 'hu' ? 'Név' : 'Name'}: ${completePrompt.characterName}
+                - ${currentLanguage === 'hu' ? 'Életkor' : 'Age'}: ${completePrompt.age}
+                - ${currentLanguage === 'hu' ? 'Nem' : 'Gender'}: ${completePrompt.gender}
+                - ${currentLanguage === 'hu' ? 'Típus' : 'Type'}: ${completePrompt.characterType}
+                - ${currentLanguage === 'hu' ? 'Személyiség' : 'Personality'}: ${completePrompt.personalityTraits}
                 
-                ${currentLanguage === 'hu' ? 'Mellékszereplők' : 'Supporting Characters'}: ${prompt.supportingCharacters}
+                ${currentLanguage === 'hu' ? 'Mellékszereplők' : 'Supporting Characters'}: ${completePrompt.supportingCharacters}
                 
-                ${currentLanguage === 'hu' ? 'Helyszín' : 'Setting'}: ${prompt.setting}
-                ${currentLanguage === 'hu' ? 'Különleges helyszínek' : 'Special Locations'}: ${prompt.specialLocations}
+                ${currentLanguage === 'hu' ? 'Helyszín' : 'Setting'}: ${completePrompt.setting}
+                ${currentLanguage === 'hu' ? 'Különleges helyszínek' : 'Special Locations'}: ${completePrompt.specialLocations}
                 
-                ${currentLanguage === 'hu' ? 'Történet típusa' : 'Story Type'}: ${prompt.storyType}
-                ${currentLanguage === 'hu' ? 'Tanulság' : 'Moral/Lesson'}: ${prompt.morals}
+                ${currentLanguage === 'hu' ? 'Történet típusa' : 'Story Type'}: ${completePrompt.storyType}
+                ${currentLanguage === 'hu' ? 'Tanulság' : 'Moral/Lesson'}: ${completePrompt.morals}
                 
-                ${currentLanguage === 'hu' ? 'Varázslatos elemek' : 'Magical Elements'}: ${prompt.magicalElements}
-                ${currentLanguage === 'hu' ? 'Kihívások' : 'Challenges'}: ${prompt.challenges}
+                ${currentLanguage === 'hu' ? 'Varázslatos elemek' : 'Magical Elements'}: ${completePrompt.magicalElements}
+                ${currentLanguage === 'hu' ? 'Kihívások' : 'Challenges'}: ${completePrompt.challenges}
                 
-                ${currentLanguage === 'hu' ? 'Hangulat' : 'Tone'}: ${prompt.tone}
-                ${currentLanguage === 'hu' ? 'Párbeszéd stílusa' : 'Dialogue Style'}: ${prompt.favoriteDialogues}
+                ${currentLanguage === 'hu' ? 'Hangulat' : 'Tone'}: ${completePrompt.tone}
+                ${currentLanguage === 'hu' ? 'Párbeszéd stílusa' : 'Dialogue Style'}: ${completePrompt.favoriteDialogues}
                 
                 ${currentLanguage === 'hu' ? 'Személyes elemek' : 'Personal Elements'}:
-                - ${currentLanguage === 'hu' ? 'Hobbik' : 'Hobbies'}: ${prompt.hobbies}
-                - ${currentLanguage === 'hu' ? 'Valós utalások' : 'Real-life References'}: ${prompt.realReferences}
+                - ${currentLanguage === 'hu' ? 'Hobbik' : 'Hobbies'}: ${completePrompt.hobbies}
+                - ${currentLanguage === 'hu' ? 'Valós utalások' : 'Real-life References'}: ${completePrompt.realReferences}
                 
-                ${currentLanguage === 'hu' ? 'Stílus' : 'Style'}: ${prompt.illustrationStyle}
+                ${currentLanguage === 'hu' ? 'Stílus' : 'Style'}: ${completePrompt.illustrationStyle}
                 
-                ${currentLanguage === 'hu' ? 'További megjegyzések' : 'Additional Notes'}: ${prompt.additionalNotes}
+                ${currentLanguage === 'hu' ? 'További megjegyzések' : 'Additional Notes'}: ${completePrompt.additionalNotes}
                 
                 ${currentLanguage === 'hu'
           ? 'Készíts egy lebilincselő, pozitív és esti mesének megfelelő történetet. Tartsd 1000 szó alatt.'
@@ -130,7 +153,7 @@ export async function generateStory(_prompt: StoryPrompt, currentLanguage: Strin
   const storyContent = storyResponse.choices[0]?.message.content || (currentLanguage === 'hu' ? "Egyszer volt, hol nem volt..." : "Once upon a time...");
 
   // Generate image prompt based on the story
-  const imagePrompt = await generateImagePrompt(storyContent, prompt.illustrationStyle);
+  const imagePrompt = await generateImagePrompt(storyContent, completePrompt.illustrationStyle!);
 
   // Generate image using DALL-E
   const imageUrl = await generateImage(imagePrompt);
@@ -138,7 +161,7 @@ export async function generateStory(_prompt: StoryPrompt, currentLanguage: Strin
   return {
     content: storyContent,
     imageUrl,
-    prompt: JSON.stringify(prompt)
+    prompt: JSON.stringify(completePrompt)
   };
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import '../../../lib/i18n';
+import '../../../i18n';
 import { Upload, Wand2, BookOpen, Share2, Menu } from 'lucide-react';
 import { UploadZone } from '@/components/input/UploadZone';
 

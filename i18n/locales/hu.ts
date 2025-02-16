@@ -124,5 +124,21 @@ export default {
   history: {
     title: "Korábbi Mesék",
     storyTitle: "{{name}} Meséje"
+  },
+  welcome: 'Alakítsd át rajzaidat varázslatos történetekké',
+  upload: 'Rajz Feltöltése',
+  dropzone: 'Húzd ide a rajzodat, vagy kattints a kiválasztáshoz',
+  processing: 'Varázslat folyamatban...',
+  login: 'Bejelentkezés a kezdéshez',
+  steps: {
+    title: 'Hogyan működik',
+    step1: 'Töltsd fel a rajzodat',
+    step1desc: 'Oszd meg bármilyen rajzot, amit életre szeretnél kelteni',
+    step2: 'Varázslatos átalakulás',
+    step2desc: 'Nézd, ahogy az AI javítja a műalkotásodat',
+    step3: 'Szerezd meg a történetedet',
+    step3desc: 'Kapj egy egyedi történetet a rajzod alapján',
+    step4: 'Hallgasd meg és oszd meg',
+    step4desc: 'Élvezd az elmesélt történetet és oszd meg barátaiddal'
   }
 };

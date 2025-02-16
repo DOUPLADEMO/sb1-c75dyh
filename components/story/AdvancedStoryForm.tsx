@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import { advancedStoryFormSchema, type AdvancedStoryFormValues } from "@/lib/validations/advanced-story-form";
 
 interface AdvancedStoryFormProps {
@@ -12,12 +12,12 @@ interface AdvancedStoryFormProps {
 }
 
 export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProps) {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const form = useForm<AdvancedStoryFormValues>({
     resolver: zodResolver(advancedStoryFormSchema),
     defaultValues: {
-      name: '',
-      age: 5,
+      characterName: '',
+      age: '5',
       gender: undefined,
       characterType: 'human',
       personalityTraits: '',
@@ -40,6 +40,10 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
   });
 
   const handleSubmit = async (values: AdvancedStoryFormValues) => {
+    const isValid = await form.trigger();
+    if (!isValid) {
+      return;
+    }
     try {
       await onSubmit(values);
     } catch (error) {
@@ -61,9 +65,12 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
               <input
                 type="text"
                 id="name"
-                {...form.register("name")}
+                {...form.register("characterName")}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
+              {form.formState.errors.characterName && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.characterName.message)}</p>
+              )}
             </div>
 
             <div>
@@ -78,6 +85,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 max="18"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
+              {form.formState.errors.age && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.age.message)}</p>
+              )}
             </div>
 
             <div>
@@ -95,6 +105,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="nonBinary">{t('form.gender.options.nonBinary')}</option>
                 <option value="notSpecify">{t('form.gender.options.notSpecify')}</option>
               </select>
+              {form.formState.errors.gender && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.gender.message)}</p>
+              )}
             </div>
 
             <div>
@@ -113,6 +126,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="fairy">{t('form.characterType.options.fairy')}</option>
                 <option value="other">{t('form.characterType.options.other')}</option>
               </select>
+              {form.formState.errors.characterType && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.characterType.message)}</p>
+              )}
             </div>
           </div>
         </div>
@@ -127,6 +143,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             rows={3}
           />
+          {form.formState.errors.personalityTraits && (
+            <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.personalityTraits.message)}</p>
+          )}
         </div>
 
         <div>
@@ -143,6 +162,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 placeholder={t('form.setting.placeholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
+              {form.formState.errors.setting && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.setting.message)}</p>
+              )}
             </div>
 
             <div>
@@ -156,6 +178,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 placeholder={t('form.specialLocations.placeholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
+              {form.formState.errors.specialLocations && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.specialLocations.message)}</p>
+              )}
             </div>
           </div>
         </div>
@@ -179,6 +204,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="mystery">{t('form.storyElements.type.options.mystery')}</option>
                 <option value="other">{t('form.storyElements.type.options.other')}</option>
               </select>
+              {form.formState.errors.storyType && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.storyType.message)}</p>
+              )}
             </div>
 
             <div>
@@ -197,6 +225,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="mysterious">{t('form.storyElements.tone.options.mysterious')}</option>
                 <option value="other">{t('form.storyElements.tone.options.other')}</option>
               </select>
+              {form.formState.errors.tone && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.tone.message)}</p>
+              )}
             </div>
           </div>
         </div>
@@ -215,6 +246,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 placeholder={t('form.personalDetails.hobbies.placeholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
+              {form.formState.errors.hobbies && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.hobbies.message)}</p>
+              )}
             </div>
 
             <div>
@@ -228,6 +262,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 rows={3}
               />
+              {form.formState.errors.realReferences && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.realReferences.message)}</p>
+              )}
             </div>
           </div>
         </div>
@@ -248,6 +285,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="medium">{t('form.preferences.length.options.medium')}</option>
                 <option value="long">{t('form.preferences.length.options.long')}</option>
               </select>
+              {form.formState.errors.storyLength && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.storyLength.message)}</p>
+              )}
             </div>
 
             <div>
@@ -263,6 +303,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
                 <option value="dreamy">{t('form.preferences.illustration.options.dreamy')}</option>
                 <option value="other">{t('form.preferences.illustration.options.other')}</option>
               </select>
+              {form.formState.errors.illustrationStyle && (
+                <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.illustrationStyle.message)}</p>
+              )}
             </div>
           </div>
         </div>
@@ -278,6 +321,9 @@ export function AdvancedStoryForm({ onSubmit, isLoading }: AdvancedStoryFormProp
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
             rows={3}
           />
+          {form.formState.errors.additionalNotes && (
+            <p className="mt-2 text-sm text-red-600">{t(form.formState.errors.additionalNotes.message)}</p>
+          )}
         </div>
 
         <button

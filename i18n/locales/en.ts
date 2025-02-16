@@ -124,5 +124,21 @@ export default {
   history: {
     title: "Previous Stories",
     storyTitle: "{{name}}'s Story"
+  },
+  welcome: 'Transform Your Drawings into Magical Stories',
+  upload: 'Upload Drawing',
+  dropzone: 'Drag and drop your drawing here, or click to select',
+  processing: 'Magic in Progress...',
+  login: 'Sign In to Begin',
+  steps: {
+    title: 'How It Works',
+    step1: 'Upload Your Drawing',
+    step1desc: 'Share any drawing you want to bring to life',
+    step2: 'Magic Transformation',
+    step2desc: 'Watch as AI enhances your artwork',
+    step3: 'Get Your Story',
+    step3desc: 'Receive a unique tale based on your drawing',
+    step4: 'Listen & Share',
+    step4desc: 'Enjoy the narrated story and share with friends'
   }
 };

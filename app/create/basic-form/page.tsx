@@ -7,6 +7,7 @@ import { StoryDisplay } from "@/components/story/StoryDisplay";
 import type { BasicStoryFormValues } from "@/lib/validations/story-form";
 import { StoryResponse } from "@/lib/openai";
 import { useAuthContext } from "@/context/AuthContext";
+import { AdvancedStoryFormValues } from "@/lib/validations/advanced-story-form";
 
 export default function CreateStory() {
   const [story, setStory] = useState<StoryResponse | null>(null);
@@ -14,7 +15,7 @@ export default function CreateStory() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuthContext();
-  async function onSubmit(values: BasicStoryFormValues) {
+  async function onSubmit(values: AdvancedStoryFormValues) {
     setLoading(true);
     setError(null);
     try {

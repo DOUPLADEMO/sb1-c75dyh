@@ -9,28 +9,33 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { storyFormSchema, type BasicStoryFormValues } from "@/lib/validations/story-form";
 import { THEMES, AGE_GROUPS, LANGUAGES, MOODS, STORY_LENGTH } from "@/lib/constants/story-options";
+import { advancedStoryFormSchema, AdvancedStoryFormValues } from "@/lib/validations/advanced-story-form";
+import { useTranslations } from "next-intl";
 
 interface BasicStoryFormProps {
-  onSubmit: (values: BasicStoryFormValues) => Promise<void>;
+  onSubmit: (values: AdvancedStoryFormValues) => Promise<void>;
   isLoading: boolean;
 }
 
 export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
-  const form = useForm<BasicStoryFormValues>({
-    resolver: zodResolver(storyFormSchema),
+  const form = useForm<AdvancedStoryFormValues>({
+    resolver: zodResolver(advancedStoryFormSchema),
     defaultValues: {
       characterName: "",
-      theme: "adventure",
-      ageGroup: "3-5",
-      length: 5,
+      age: "3-5",
+      length: '5',
       language: "english",
       tone: "playful",
     },
   });
+  const t = useTranslations();
 
-  const handleSubmit = async (values: BasicStoryFormValues) => {
+  const handleSubmit = async (values: AdvancedStoryFormValues) => {
+    const isValid = await form.trigger();
+    if (!isValid) {
+      return;
+    }
     try {
       await onSubmit(values);
     } catch (error) {
@@ -57,7 +62,7 @@ export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
 
         <FormField
           control={form.control}
-          name="theme"
+          name="illustrationStyle"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Story Theme</FormLabel>
@@ -82,7 +87,7 @@ export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
 
         <FormField
           control={form.control}
-          name="ageGroup"
+          name="age"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Age Group</FormLabel>
@@ -107,6 +112,30 @@ export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
 
         <FormField
           control={form.control}
+          name="gender"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Gender</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="male">{t('form.gender.options.male')}</SelectItem>
+                  <SelectItem value="female">{t('form.gender.options.female')}</SelectItem>
+                  <SelectItem value="nonBinary">{t('form.gender.options.nonBinary')}</SelectItem>
+                  <SelectItem value="notSpecify">{t('form.gender.options.notSpecify')}</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="length"
           render={({ field }) => (
             <FormItem>
@@ -116,8 +145,8 @@ export function BasicStoryForm({ onSubmit, isLoading }: BasicStoryFormProps) {
                   min={STORY_LENGTH.min}
                   max={STORY_LENGTH.max}
                   step={STORY_LENGTH.step}
-                  value={[field.value]}
-                  onValueChange={(value) => field.onChange(value[0])}
+                  value={[parseInt(field.value!)]}
+                  onValueChange={(value) => field.onChange(value[0].toString())}
                   onBlur={field.onBlur}
                   className="w-full"
                 />
