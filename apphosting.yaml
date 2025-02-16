@@ -1,23 +1,26 @@
-# Settings for Backend (on Cloud Run).
-# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
+# Settings for Cloud Run
 runConfig:
-  minInstances: 0
-  # maxInstances: 100
-  # concurrency: 80
-  # cpu: 1
-  # memoryMiB: 512
+  minInstances: 2
+  maxInstances: 100
+  concurrency: 100
+  cpu: 2
+  memoryMiB: 1024
 
-# Environment variables and secrets.
-# env:
-  # Configure environment variables.
-  # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
-  # - variable: MESSAGE
-  #   value: Hello world!
-  #   availability:
-  #     - BUILD
-  #     - RUNTIME
+# Environment variables and secrets
+env:
+  - variable: NEXT_PUBLIC_STORAGE_BUCKET
+    value: bedtimestories1-5f241.firebasestorage.app
+    availability:
+      - BUILD
+      - RUNTIME
 
-  # Grant access to secrets in Cloud Secret Manager.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
-  # - variable: MY_SECRET
-  #   secret: mySecretRef
+  - variable: FIREBASE_PROJECT_ID
+    secret: bedtimestories1-5f241
+
+    # Same as API_KEY above but with a pinned version.
+  - variable: FIREBASE_PRIVATE_KEY
+    secret: my-firebase-private-key
+
+    # Same as API_KEY above but with the long form secret reference as defined by Cloud Secret Manager.
+  - variable: FIREBASE_CLIENT_EMAIL
+    secret: firebase-adminsdk-fbsvc@bedtimestories1-5f241.iam.gserviceaccount.com
