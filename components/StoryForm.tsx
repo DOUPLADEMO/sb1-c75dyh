@@ -1,6 +1,6 @@
+import { StoryPrompt } from '@/lib/openai';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { StoryPrompt } from '../services/openai';
 
 interface StoryFormProps {
   onSubmit: (prompt: StoryPrompt) => void;
@@ -10,8 +10,8 @@ interface StoryFormProps {
 export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<StoryPrompt>({
-    name: '',
-    age: 5,
+    characterName: '',
+    age: '5',
     gender: '',
     characterType: 'human',
     personalityTraits: '',
@@ -63,7 +63,7 @@ export function StoryForm({ onSubmit, isLoading }: StoryFormProps) {
                 id="name"
                 name="name"
                 required
-                value={formData.name}
+                value={formData.characterName}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />

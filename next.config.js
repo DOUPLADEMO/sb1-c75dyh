@@ -10,9 +10,7 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   productionBrowserSourceMaps: true,
-  env: {
-    _next_intl_trailing_slash: 'true',
-  },
+  trailingSlash: true,
 };
 
 module.exports = withNextIntl(nextConfig);
