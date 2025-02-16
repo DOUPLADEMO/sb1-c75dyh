@@ -27,17 +27,24 @@ const MyStories = () => {
     const fetchStories = async () => {
       if (!user) return;
 
-      const response = await fetch('/api/my-stories', {
-        headers: {
-          Authorization: `Bearer ${await user.getIdToken()}`
-        }
-      });
+      try {
+        const idToken = await user.getIdToken(); // Fetch token securely
 
-      if (response.ok) {
-        const data = await response.json();
-        setStories(data.stories);
-      } else {
-        console.error('Failed to fetch stories');
+        const response = await fetch('/api/my-stories', {
+          headers: {
+            Authorization: `Bearer ${idToken}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setStories(data.stories);
+        } else {
+          const errorData = await response.json();
+          console.error('Error fetching stories:', errorData);
+        }
+      } catch (error) {
+        console.error('Token fetch error:', error);
       }
 
       setLoading(false);
