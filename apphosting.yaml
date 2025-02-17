@@ -15,7 +15,7 @@ env:
       - RUNTIME
 
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    value: AIzaSyDNJPGP2qbyBEDBg6NjmYvAumSrJX3eTr8
+    value: my-firebase-api-key
 
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
     value: bedtimestories1-5f241.firebaseapp.com
@@ -39,10 +39,10 @@ env:
     value: bedtimestories1-5f241
 
   - variable: FIREBASE_PRIVATE_KEY
-    value: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCmg4UztHj2Qkbk\n+UwUL4gEGw8y2j2HiDWcQqV+z+MVFgW4MlIBvo39PUm0reTI+z3PlYoXo6IsMslt\nsbm1GRG7eWggdWOxJHWQiZLNvZBXAThwj8/i0lt+hrPAA2gqXUUxhKaZuXBBOUNY\nJANkvQdjQD/5Rdt0oax2+Q1gOpL8im9EtDRslNj8dg9ky88qQYcsInZ9b9gpGEJI\n8y0imJF/vGGxyUJbgZRvrGljmO6Tt01K+oWLu2SuI/vmIHxe3VAb7/Nc/fX3+LvG\nNtfCq4zy1Jrhmom7F3A7xP0SgIiivdd3PnGBnIlL5nmAtrckNC6ZOFZKggwB4gRP\nNicUurZXAgMBAAECggEABQTTJPsm54qZMcREg289/ZxbLuszuOa6xu+d/Akut69R\nk3sLdxCpSEgVSqQweyZSIfRIlJcoB4ZYWpK6yDdDOOVbOsSPBq3UpVCgOMyikcdw\nTg7nndc9Tr5R+KhMTB/s5VCG56dBN5YO7j8s+Fes5f7vxAb+VbDxznw0klacS472\n1nw2iljwW2s7o634X0YcO/7O7jHljybUUM5AkC3zi+RXxgaUmof8LK5LACoMB+pp\nGDoDplz89tq7+7vrkiSCJ01ikpQVtz5O6ajt7xxm3UNU5ft14Wky57WSGAsi3C4a\nGAm4+zgEhoe35uN5uzk4zGCbI+PATOxN7QJpkzTLsQKBgQDVCEG/y0nwfDE9Nqz5\nswLCcNbPL7Wvouzvk7r87mb4SZmPa2TTE7g+wVggGAebLfSktbMmQgnJthaKPHbJ\nf9gjNsJUfkisSdgyQaI+kyLyVhD/Uhqoy3YL8IKHNaKrqu3RszTFhXgND8pbRrGY\nRsnpbwBs1RofqlHVubMdGWRd8wKBgQDIGVHAEfAZGOcHBkE2wza18Zd6a0E7T0Fs\ngIdpWBGqmRO+s3fhGLWLVbWy/PtP3Cf1vb4ZsBSIaeEDRUejvkPGtbf2IzlEaRdb\n0SZ+DRpy023hBx2TEGiWM4ZPHqEuL2pLpPU8aIe0Urb5sAkDu0Aay4QXiAn7ojhK\naDHryqWLDQKBgQCjPXd8a19WKyRj/sCfel+z9Vl1W97CHnumvbI8XMaEnYlRD/8r\ni2HUnL1VonQ5ogZkLGOB/nqXmbM97EUt9Iv/t9dDfZ1cgB1trUOQ5ZiS0AaoTxbk\nnzvuvDaZOy1SlGE2Hjdi3/p1L9NlDA/MWvofqRJPUyB4gT/CIVEyDCIPpwKBgQCq\nGRPsgZMn0op55zBCvDni+ud48nn2UA5ejPgPbgU+j3hAcVGj8RxKwOZ/rBx6q7zw\nYoaaUZtyxwa3gApBQLlezxT90L2a0PdBXw8osjzchazvUNwsKxOtM0mmMnRzzWy/\ntw+ddYJ+oJ3YrXNMT75TyNOWKVfLKABQCDj/pzmIdQKBgGXNbSEN80WkMGCbgrAt\n17RxvJOgF5UqUzysGHC3CwddV5bTP5DRxxzm2y4QEg1kVmyRSfptTIFOERN/XNOI\nsM+coODpUhXMaY+GYG8vcLtiM/WTExEat7Hq+xlejDAeM2B2/NiONmdRc4tibkN0\niBdx3jQq2+jiFVZcVEP6eU5l\n-----END PRIVATE KEY-----\n"
+    value: my-firebase-private-key
 
   - variable: FIREBASE_CLIENT_EMAIL
     value: firebase-adminsdk-fbsvc@bedtimestories1-5f241.iam.gserviceaccount.com
 
   - variable: OPENAI_API_KEY
-    value: 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
+    value: OPENAI_API_KEY
