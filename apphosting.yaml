@@ -14,10 +14,13 @@ env:
       - BUILD
       - RUNTIME
 
-  - variable: FIREBASE_API_KEY
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     secret: my-firebase-api-key
 
   - variable: FIREBASE_PROJECT_ID
+    value: bedtimestories1-5f241
+
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
     value: bedtimestories1-5f241
 
     # Same as API_KEY above but with a pinned version.
