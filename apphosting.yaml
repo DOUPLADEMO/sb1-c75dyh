@@ -14,12 +14,18 @@ env:
       - BUILD
       - RUNTIME
 
+  - variable: FIREBASE_API_KEY
+    value: AIzaSyDNJPGP2qbyBEDBg6NjmYvAumSrJX3eTr8
+
   - variable: FIREBASE_PROJECT_ID
     value: bedtimestories1-5f241
 
     # Same as API_KEY above but with a pinned version.
   - variable: FIREBASE_PRIVATE_KEY
     secret: my-firebase-private-key
+    # Same as API_KEY above but with a pinned version.
+  - variable: OPENAI_API_KEY
+    secret: OPENAI_API_KEY
 
     # Same as API_KEY above but with the long form secret reference as defined by Cloud Secret Manager.
   - variable: FIREBASE_CLIENT_EMAIL
