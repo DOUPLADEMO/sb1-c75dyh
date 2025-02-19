@@ -13,15 +13,21 @@ export async function GET(request: Request) {
 
         // Extract and verify ID token
         const idToken = authHeader.split('Bearer ')[1].trim();
+        console.log('Verifying token:', idToken);
         const decodedToken = await auth.verifyIdToken(idToken);
+        console.log('Decoded token:', decodedToken);
         const uid = decodedToken.uid;
+        console.log('User ID:', uid);
 
         // Fetch user's stories from Firestore
         const storiesSnapshot = await db.collection('stories').where('authorUid', '==', uid).get();
+        console.log('Fetched stories:', storiesSnapshot.docs.length);
         const stories = storiesSnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
+
+        console.log('Returning stories:', stories.length);
 
         return NextResponse.json({ stories });
     } catch (error: any) {
@@ -32,6 +38,7 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'Token expired, please login again' }, { status: 401 });
         }
 
+        console.log(error);
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 }
