@@ -5,7 +5,7 @@ import { getAuth } from 'firebase-admin/auth';
 // Initialize Firebase Admin SDK only once
 if (!getApps().length) {
     const firebaseCredentials = {
-        projectId: process.env.FIREBASE_PROJECT_ID,
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
         privateKey: process.env.FIREBASE_PRIVATE_KEY
             ? (process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'))
             : undefined,
