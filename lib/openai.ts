@@ -66,6 +66,25 @@ async function generateTitle(imageUrl: string): Promise<string> {
   return response.choices[0]?.message.content || "A Magical Tale";
 }
 
+export async function generateStoryPromptFromImage(imageUrl: string): Promise<StoryPrompt> {
+  const title = await generateTitle(imageUrl);
+
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [{
+      role: "system",
+      content: "You are an expert at creating detailed story prompts for children's stories based on images."
+    }, {
+      role: "user",
+      content: `Generate a detailed story prompt for a children's story based on this image: ${imageUrl}. The title of the story is "${title}".`
+    }],
+    temperature: 0.7,
+    max_tokens: 400
+  });
+
+  const storyPrompt = JSON.parse(response.choices[0]?.message.content || "{}");
+  return storyPrompt;
+}
 
 async function generateImagePrompt(story: string, illustrationStyle: string): Promise<string> {
   const response = await openai.chat.completions.create({

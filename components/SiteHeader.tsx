@@ -4,15 +4,11 @@ import { Wand2, Menu } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useRouter } from 'next/router';
-import { useEffect, useState, useCallback } from 'react';
-import i18n from 'i18next'; // Ensure i18n is imported
 
 function SiteHeader() {
 
     const { user, logout } = useAuthContext();
     const { t } = useTranslation();
-    const [isRouterReady, setIsRouterReady] = useState(true);
 
     const handleLogout = () => {
         logout();
@@ -23,11 +19,6 @@ function SiteHeader() {
         window.location.href = "/signup";
     }
 
-    const changeLanguage = useCallback((lng: string) => {
-        if (isRouterReady) {
-            i18n.changeLanguage(lng);
-        }
-    }, [isRouterReady]);
 
     return (<header className="bg-gradient-to-r from-purple-600 to-pink-500 text-white">
         <div className="container mx-auto px-4 py-4">
@@ -38,12 +29,6 @@ function SiteHeader() {
                 </Link>
 
                 <div className="flex items-center space-x-4">
-                    <button onClick={() => changeLanguage('en')} className="bg-white text-purple-600 px-4 py-2 rounded-full font-medium hover:bg-opacity-90 transition-colors">
-                        EN
-                    </button>
-                    <button onClick={() => changeLanguage('hu')} className="bg-white text-purple-600 px-4 py-2 rounded-full font-medium hover:bg-opacity-90 transition-colors">
-                        HU
-                    </button>
                     {user ? (
                         <>
                             <Link href="/create" className="hidden md:block">
