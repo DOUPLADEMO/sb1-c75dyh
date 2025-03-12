@@ -140,5 +140,25 @@ export default {
     step3desc: 'Receive a unique tale based on your drawing',
     step4: 'Listen & Share',
     step4desc: 'Enjoy the narrated story and share with friends'
+  },
+  createPage: {
+    title: "Welcome to the Story Creator",
+    subtitle: "Choose an option to get started:",
+    basicForm: {
+      title: "Create Story with Basic Form",
+      description: "Use a simple form to create your story."
+    },
+    advancedForm: {
+      title: "Create Story with Advanced Form",
+      description: "Use an advanced form with more options."
+    },
+    imageUpload: {
+      title: "Create Story with Image Upload",
+      description: "Upload images to enhance your story."
+    },
+    freeType: {
+      title: "Create Story with Free Type Text",
+      description: "Type your story freely without constraints."
+    }
   }
 };

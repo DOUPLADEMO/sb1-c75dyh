@@ -3,13 +3,12 @@ import { useDropzone } from 'react-dropzone';
 import { useTranslation } from 'react-i18next';
 import { Upload, Image as ImageIcon } from 'lucide-react';
 
-export const UploadZone: React.FC = () => {
-    const { t } = useTranslation();
+interface UploadZoneProps {
+    onDrop: (files: File[]) => void;
+}
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        // Handle file upload logic here
-        console.log(acceptedFiles);
-    }, []);
+export const UploadZone: React.FC<UploadZoneProps> = ({ onDrop }) => {
+    const { t } = useTranslation();
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,

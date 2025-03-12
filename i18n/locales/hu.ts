@@ -140,5 +140,25 @@ export default {
     step3desc: 'Kapj egy egyedi történetet a rajzod alapján',
     step4: 'Hallgasd meg és oszd meg',
     step4desc: 'Élvezd az elmesélt történetet és oszd meg barátaiddal'
+  },
+  createPage: {
+    title: "Üdvözöljük a Történet Készítőben",
+    subtitle: "Válasszon egy lehetőséget a kezdéshez:",
+    basicForm: {
+      title: "Történet létrehozása egyszerű űrlappal",
+      description: "Használjon egyszerű űrlapot a történet létrehozásához."
+    },
+    advancedForm: {
+      title: "Történet létrehozása haladó űrlappal",
+      description: "Használjon haladó űrlapot több lehetőséggel."
+    },
+    imageUpload: {
+      title: "Történet létrehozása képfeltöltéssel",
+      description: "Töltsön fel képeket a történet kiegészítéséhez."
+    },
+    freeType: {
+      title: "Történet létrehozása szabad szöveggel",
+      description: "Írja be a történetét szabadon, korlátozások nélkül."
+    }
   }
 };

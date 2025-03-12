@@ -7,7 +7,7 @@ if (!apiKey) {
 
 export const openai = new OpenAI({
   apiKey: apiKey || '',
-  dangerouslyAllowBrowser: false,
+  dangerouslyAllowBrowser: true,
 });
 
 
@@ -39,6 +39,33 @@ export interface StoryResponse {
   imageUrl: string;
   prompt: string;
 }
+
+export async function enhanceImage(file: File): Promise<string> {
+  const response = await openai.images.edit({
+    image: file,
+    prompt: "Transform the provided drawing into a high-quality, professional children’s book illustration. Maintain the original essence while refining the linework, enhancing details, and adding smooth, storybook-like shading. Use a vibrant and playful color palette that is warm, expressive, and engaging for young readers. Ensure soft, textured lighting and depth to create a whimsical atmosphere. Add subtle, imaginative background elements that complement the character and setting without overwhelming the main focal point.",
+    n: 1,
+    size: "1024x1024"
+  });
+  return response.data[0]?.url || "";
+}
+
+async function generateTitle(imageUrl: string): Promise<string> {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [{
+      role: "system",
+      content: "You are an expert at generating imaginative and fitting titles for children's book illustrations."
+    }, {
+      role: "user",
+      content: `Generate a whimsical and creative title for a children's book illustration based on this image: ${imageUrl}`
+    }],
+    temperature: 0.7,
+    max_tokens: 50
+  });
+  return response.choices[0]?.message.content || "A Magical Tale";
+}
+
 
 async function generateImagePrompt(story: string, illustrationStyle: string): Promise<string> {
   const response = await openai.chat.completions.create({
