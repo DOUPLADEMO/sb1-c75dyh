@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { BasicStoryForm } from "@/components/story/BasicStoryForm";
 import { StoryDisplay } from "@/components/story/StoryDisplay";
-import type { BasicStoryFormValues } from "@/lib/validations/story-form";
 import { StoryResponse } from "@/lib/openai";
 import { useAuthContext } from "@/context/AuthContext";
 import { AdvancedStoryFormValues } from "@/lib/validations/advanced-story-form";

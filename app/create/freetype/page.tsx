@@ -50,11 +50,6 @@ export default function Input2() {
             </div>
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-xl shadow-xl p-8">
-              <UploadZone />
-            </div>
-          </div>
         </div>
       </main>
     </div >
