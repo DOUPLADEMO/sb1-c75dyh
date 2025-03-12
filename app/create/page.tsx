@@ -10,29 +10,33 @@ export default function LandingPage() {
                 <Card className="p-6">
                     <h1 className="text-3xl font-bold mb-8">Welcome to the Story Creator</h1>
                     <p className="mb-4">Choose an option to get started:</p>
-                    <ul className="">
-                        <li>
-                            <Link href="/create/basic-form" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
-                                Create Story with Basic Form
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/create/advanced-form" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
-                                Create Story with Advanced Form
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/create/image-upload" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
-                                Create Story with image upload
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/create/freetype" className="inline-block px-4 py-2 text-lg font-bold text-white bg-blue-500 rounded hover:bg-blue-700 transition-colors duration-300">
-                                Create Story with free type text
-                            </Link>
-                        </li>
+                    <div className="grid grid-cols-1 gap-4">
+                        <Link href="/create/basic-form">
+                            <Card className="p-4 hover:shadow-lg transition-shadow duration-300">
+                                <h2 className="text-xl font-bold">Create Story with Basic Form</h2>
+                                <p className="text-gray-600">Use a simple form to create your story.</p>
+                            </Card>
+                        </Link>
+                        <Link href="/create/advanced-form">
+                            <Card className="p-4 hover:shadow-lg transition-shadow duration-300">
+                                <h2 className="text-xl font-bold">Create Story with Advanced Form</h2>
+                                <p className="text-gray-600">Use an advanced form with more options.</p>
+                            </Card>
+                        </Link>
+                        <Link href="/create/image-upload">
+                            <Card className="p-4 hover:shadow-lg transition-shadow duration-300">
+                                <h2 className="text-xl font-bold">Create Story with Image Upload</h2>
+                                <p className="text-gray-600">Upload images to enhance your story.</p>
+                            </Card>
+                        </Link>
+                        <Link href="/create/freetype">
+                            <Card className="p-4 hover:shadow-lg transition-shadow duration-300">
+                                <h2 className="text-xl font-bold">Create Story with Free Type Text</h2>
+                                <p className="text-gray-600">Type your story freely without constraints.</p>
+                            </Card>
+                        </Link>
                         {/* Add more links here as needed */}
-                    </ul>
+                    </div>
                 </Card>
             </div>
         </div>

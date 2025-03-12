@@ -35,6 +35,9 @@ env:
   - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
     value: G-39NZLVW8RF
 
+  - variable: FIREBASE_PROJECT_ID
+    value: bedtimestories1-5f241
+
   - variable: FIREBASE_PRIVATE_KEY
     secret: my-firebase-private-key
 

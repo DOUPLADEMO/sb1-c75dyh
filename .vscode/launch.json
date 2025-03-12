@@ -1,11 +1,13 @@
 {
     "version": "0.2.0",
     "configurations": [
+      
       {
         "name": "Next.js: debug server-side",
         "type": "node-terminal",
         "request": "launch",
-        "command": "npm run dev"
+        "command": "npm run dev",
+        "runtimeExecutable": "/Users/pixeloid/.nvm/versions/node/v18.19.0/bin/node"
       },
       {
         "name": "Next.js: debug client-side",
@@ -33,6 +35,7 @@
         "program": "${workspaceFolder}/node_modules/.bin/next",
         "runtimeArgs": ["--inspect"],
         "skipFiles": ["<node_internals>/**"],
+        "runtimeExecutable": "/Users/pixeloid/.nvm/versions/node/v18.19.0/bin/node",
         "serverReadyAction": {
           "killOnServerStop": true,
           "pattern": "- Local:.+(https?://.+)",
