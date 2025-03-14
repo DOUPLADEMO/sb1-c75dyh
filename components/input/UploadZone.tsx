@@ -13,7 +13,6 @@ export const UploadZone: React.FC<UploadZoneProps> = ({ onDrop }) => {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept: {
-            'image/jpeg': ['.jpg', '.jpeg'],
             'image/png': ['.png']
         },
         maxSize: 5242880, // 5MB
@@ -37,7 +36,7 @@ export const UploadZone: React.FC<UploadZoneProps> = ({ onDrop }) => {
                     <Upload className="w-16 h-16 mx-auto text-gray-400 mb-4" />
                 )}
                 <p className="text-xl font-medium mb-2">{t('dropzone')}</p>
-                <p className="text-sm text-gray-500">JPG, PNG (max. 5MB)</p>
+                <p className="text-sm text-gray-500"> PNG (max. 4MB)</p>
             </div>
         </div>
     );
