@@ -15,8 +15,8 @@ export async function POST(request: Request, res: Response) {
         const [result] = await client.annotateImage({
             image: { content: file },
             features: [
-                { type: 'LABEL_DETECTION', maxResults: 10 },
-                { type: 'OBJECT_LOCALIZATION', maxResults: 10 },
+                { type: 'LABEL_DETECTION', maxResults: 50 },
+                { type: 'OBJECT_LOCALIZATION', maxResults: 50 },
                 { type: 'TEXT_DETECTION' },
                 { type: 'FACE_DETECTION' },
                 { type: 'SAFE_SEARCH_DETECTION' },
