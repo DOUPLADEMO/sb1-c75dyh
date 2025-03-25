@@ -34,3 +34,36 @@ export interface StoryResponse {
   content: string;
   imageUrl: string;
 }
+
+
+export interface VisionAnnotation {
+  description: string;
+  score: number;
+  boundingPoly?: {
+    vertices: Array<{
+      x: number;
+      y: number;
+    }>;
+  };
+}
+
+export interface VisionAnalysisResult {
+  labels?: VisionAnnotation[];
+  objects?: VisionAnnotation[];
+  faces?: any[];
+  text?: string;
+  safeSearch?: {
+    adult: string;
+    spoof: string;
+    medical: string;
+    violence: string;
+    racy: string;
+  };
+  error?: string;
+}
+
+
+export interface UploadedImage {
+  file: File | null;
+  preview: string;
+}
